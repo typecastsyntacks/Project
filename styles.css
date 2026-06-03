@@ -1,0 +1,216 @@
+/* =========================================================================
+   THE STYLE FILE (CSS)
+
+   CSS controls how the website LOOKS — colors, fonts, spacing, sizes.
+   Right now everything in here is intentionally ugly: clashing colors,
+   fonts that fight each other, things that don't line up, and images
+   that are stretched and rotated.
+
+   You do NOT need to understand this file. That's what Claude Code is for.
+   Ask Claude to fix it. For example:
+     - "Change the background so it isn't lime green."
+     - "Make all the section titles use the same font."
+     - "Center everything and add nice spacing."
+   ========================================================================= */
+
+/* The whole page background and base text */
+body {
+  background-color: #7CFC00;        /* lime green. yikes. */
+  margin: 0;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: #1a1aff;                   /* blue text on green. hard to read. */
+}
+
+/* ---------- TOP BAR ---------- */
+.topbar {
+  background-color: #ff00ff;        /* hot pink */
+  padding: 6px;
+  transform: rotate(-2deg);          /* the whole bar is crooked */
+  text-align: left;
+}
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: yellow;
+  font-family: "Times New Roman", serif;
+}
+/* every nav link looks different on purpose */
+.navlink1 { color: red;    font-size: 22px; text-decoration: underline; margin-left: 4px; }
+.navlink2 { color: black;  font-size: 12px; margin-left: 40px; font-family: monospace; }
+.navlink3 { color: white;  font-size: 18px; margin-left: 9px; background: black; }
+.navlink4 { color: lime;   font-size: 28px; margin-left: 70px; font-style: italic; }
+
+/* ---------- HERO ---------- */
+.hero {
+  text-align: center;
+  background-color: #00ffff;        /* cyan, clashes with everything */
+  padding: 10px;
+}
+.bigname {
+  font-size: 70px;
+  color: orange;
+  font-family: "Courier New", monospace;
+  margin: 0;
+  text-shadow: 4px 4px 0 purple;     /* heavy drop shadow */
+  letter-spacing: -6px;              /* letters cramped together */
+}
+.tagline {
+  font-size: 11px;                   /* tiny tagline, hard to read */
+  color: #555;
+}
+/* the hero photo box is way too wide and stretched */
+.hero-photo {
+  display: inline-block;
+  width: 500px;
+  height: 90px;
+  background-color: gray;
+  font-size: 30px;
+  border: 6px dashed red;
+  line-height: 1.1;
+}
+.herobutton {
+  background-color: darkred;
+  color: #00ff00;
+  font-size: 20px;
+  padding: 14px 2px;                 /* lopsided padding */
+  border: 5px outset #999;
+  font-family: "Times New Roman", serif;
+}
+
+/* ---------- ABOUT ---------- */
+.about-section {
+  background-color: #ffff99;         /* pale yellow */
+  padding: 5px 80px;                 /* uneven, way too much side padding */
+}
+.section-title-a {
+  font-family: "Comic Sans MS", cursive;
+  color: #cc00cc;
+  font-size: 40px;
+  text-align: right;                 /* title floats off to the right */
+}
+.bio {
+  font-size: 19px;
+  color: #003300;
+  line-height: 1.1;                  /* lines cramped together */
+  font-family: Georgia, serif;
+}
+.bio-extra {
+  font-size: 13px;
+  color: gray;
+  font-family: monospace;
+  transform: rotate(1deg);
+}
+
+/* ---------- INTERESTS / CARDS ---------- */
+.interests {
+  background-color: #333;
+  padding: 20px;
+  text-align: center;
+}
+.section-title-b {
+  color: #ff6600;
+  font-size: 34px;
+  font-family: Impact, sans-serif;
+}
+/* cards are all different sizes and don't line up at all */
+.card {
+  display: inline-block;
+  vertical-align: top;
+  margin: 4px;
+  padding: 10px;
+  color: black;
+  border: 3px solid black;
+}
+.card-blue   { background: #6699ff; width: 220px; height: 160px; transform: rotate(-4deg); }
+.card-orange { background: #ffaa33; width: 140px; height: 200px; transform: rotate(3deg); }
+.card-green  { background: #66ff66; width: 300px; height: 110px; }
+.card h3 { font-family: "Brush Script MT", cursive; font-size: 24px; }
+
+/* ---------- PROJECTS ---------- */
+.projects-section {
+  background-color: #ffccdd;         /* pink */
+  padding: 15px;
+}
+.section-title-c {
+  font-family: "Courier New", monospace;
+  font-size: 30px;
+  color: teal;
+  text-decoration: underline overline;
+}
+.project-row {
+  margin-bottom: 25px;
+}
+/* project image and text don't align nicely */
+.project-img {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background: #888;
+  font-size: 50px;
+  text-align: center;
+  vertical-align: bottom;
+}
+.project-text {
+  display: inline-block;
+  width: 60%;
+  vertical-align: top;
+  margin-left: 30px;
+  font-family: Verdana, sans-serif;
+}
+.project-text h3 { color: #990000; }
+
+/* ---------- PHOTO GALLERY ---------- */
+.gallery {
+  background-color: #220033;         /* dark purple */
+  padding: 30px;
+  text-align: center;
+}
+.section-title-d {
+  color: #00ffcc;
+  font-size: 36px;
+  font-family: "Lucida Handwriting", cursive;
+}
+/* every photo is a different stretched size and tilted a different way */
+.photo {
+  display: inline-block;
+  background: #ddd;
+  font-size: 45px;
+  text-align: center;
+  margin: 8px;
+  border: 4px ridge gold;
+}
+.photo1 { width: 200px; height: 70px;  transform: rotate(-8deg); }
+.photo2 { width: 70px;  height: 200px; transform: rotate(6deg); }
+.photo3 { width: 160px; height: 160px; transform: rotate(-3deg); }
+.photo4 { width: 240px; height: 90px;  transform: rotate(11deg); }
+
+/* ---------- CONTACT ---------- */
+.contact-section {
+  background-color: #00ff00;
+  padding: 12px;
+  text-align: center;
+}
+.section-title-e {
+  font-size: 50px;
+  color: magenta;
+  font-family: Impact, sans-serif;
+  letter-spacing: 12px;              /* letters spread way too far apart */
+}
+.contact-line {
+  font-size: 18px;
+  color: navy;
+  font-family: "Comic Sans MS", cursive;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  background-color: black;
+  color: #00ff00;
+  text-align: center;
+  padding: 20px;
+  font-family: monospace;
+}
+.tiny {
+  font-size: 9px;
+  color: #444;
+}
