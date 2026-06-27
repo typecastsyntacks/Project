@@ -1,130 +1,1091 @@
 <!DOCTYPE html>
-<!--
-  =========================================================================
-  👋 HEY! READ THIS FIRST.
-
-  This is YOUR website. Right now it looks pretty bad on purpose.
-  Your job: use Claude Code to make it look good AND make it about YOU.
-
-  Anywhere you see text in [[ DOUBLE BRACKETS ]], that's a placeholder.
-  Replace it with your own real info (your name, your interests, etc.).
-
-  Try asking Claude Code things like:
-    - "Make this website look clean and modern."
-    - "Pick a color palette that feels calm and change the whole site to it."
-    - "Fix the spacing and make everything line up."
-    - "The fonts clash. Choose two fonts that go together."
-    - "Replace the placeholder text with info about me: my name is ___,
-       I love ___, and I built ___."
-
-  You can't break anything. Experiment. Have fun.
-  =========================================================================
--->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>my websight!!! :)</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerPath — Discover Your Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── BASE ──────────────────────────────────── */
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #6D28D9 0%, #5B21B6 50%, #7C3AED 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Floating ambient orbs */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+      top: -250px; right: -250px;
+      pointer-events: none;
+      animation: orb 9s ease-in-out infinite;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      bottom: -150px; left: -150px;
+      pointer-events: none;
+      animation: orb 12s ease-in-out infinite reverse;
+    }
+
+    @keyframes orb {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(20px,-30px) scale(1.05); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes barGrow { from { width: 0; } }
+    @keyframes numUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SCREENS ────────────────────────────────── */
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: flex; flex-direction: column; animation: fadeUp 0.4s ease-out; }
+
+    /* ── GLASS ──────────────────────────────────── */
+    .glass {
+      background: rgba(255,255,255,0.13);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 22px;
+    }
+
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      border-radius: 50px;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-white {
+      background: #fff;
+      color: #7C3AED;
+      padding: 15px 38px;
+      font-size: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,0.22); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.28);
+      padding: 13px 30px;
+      font-size: 15px;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.24); }
+
+    /* ══════════════════════════════════════════════
+       LANDING
+    ══════════════════════════════════════════════ */
+    #landing {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px 60px;
+    }
+    .landing-wrap { max-width: 660px; width: 100%; }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .landing-title {
+      font-size: clamp(38px, 7vw, 68px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .landing-title em { font-style: normal; color: rgba(255,255,255,0.6); }
+    .landing-sub {
+      font-size: 18px;
+      font-weight: 400;
+      opacity: 0.85;
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 44px;
+    }
+    .chip {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .landing-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 56px;
+      flex-wrap: wrap;
+    }
+    .lstat-n { font-size: 30px; font-weight: 800; }
+    .lstat-l { font-size: 12px; font-weight: 500; opacity: 0.65; margin-top: 2px; }
+
+    /* ══════════════════════════════════════════════
+       QUIZ
+    ══════════════════════════════════════════════ */
+    #quiz { align-items: center; padding: 40px 20px 60px; }
+    .quiz-wrap { max-width: 720px; width: 100%; }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .q-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+    .q-counter { font-size: 13px; font-weight: 600; opacity: 0.7; }
+
+    .prog-track {
+      height: 5px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .prog-fill {
+      height: 100%;
+      background: #fff;
+      border-radius: 10px;
+      transition: width 0.45s cubic-bezier(.4,0,.2,1);
+    }
+
+    .q-card { padding: 36px 36px 32px; margin-bottom: 20px; }
+    .q-category {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 14px;
+    }
+    .q-text {
+      font-size: clamp(20px, 3.5vw, 27px);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+    @media (max-width: 560px) { .answers { grid-template-columns: 1fr; } }
+
+    .ans {
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.11);
+      border: 2px solid rgba(255,255,255,0.16);
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      animation: fadeUp 0.35s ease-out both;
+      transition: background 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    .ans:nth-child(1) { animation-delay: 0.04s; }
+    .ans:nth-child(2) { animation-delay: 0.09s; }
+    .ans:nth-child(3) { animation-delay: 0.14s; }
+    .ans:nth-child(4) { animation-delay: 0.19s; }
+    .ans:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+    .ans.chosen {
+      background: #fff;
+      color: #6D28D9;
+      border-color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    }
+    .ans-dot {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .ans.chosen .ans-dot { background: rgba(109,40,217,0.12); color: #6D28D9; }
+
+    .btn-next {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.15s;
+    }
+    .btn-next.show { opacity: 1; pointer-events: all; }
+
+    /* ══════════════════════════════════════════════
+       RESULTS
+    ══════════════════════════════════════════════ */
+    #results { align-items: center; padding: 44px 20px 70px; }
+    .results-wrap { max-width: 900px; width: 100%; }
+
+    .results-hd {
+      text-align: center;
+      margin-bottom: 44px;
+      animation: fadeUp 0.4s ease-out;
+    }
+    .results-emoji { font-size: 52px; display: block; margin-bottom: 14px; }
+    .results-title { font-size: clamp(28px,5vw,46px); font-weight: 800; margin-bottom: 10px; }
+    .results-sub { font-size: 16px; opacity: 0.8; font-weight: 400; max-width: 480px; margin: 0 auto; line-height: 1.65; }
+
+    .career-list { display: flex; flex-direction: column; gap: 26px; }
+
+    .c-card {
+      padding: 34px;
+      animation: fadeUp 0.5s ease-out both;
+    }
+    .c-card:nth-child(1) { animation-delay: 0.08s; }
+    .c-card:nth-child(2) { animation-delay: 0.18s; }
+    .c-card:nth-child(3) { animation-delay: 0.28s; }
+    .c-card:nth-child(4) { animation-delay: 0.38s; }
+
+    .c-top {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .c-icon { font-size: 42px; flex-shrink: 0; line-height: 1; }
+    .c-hd { flex: 1; min-width: 180px; }
+    .c-rank {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 5px;
+    }
+    .c-title { font-size: clamp(20px,3vw,27px); font-weight: 700; margin-bottom: 6px; }
+    .c-desc { font-size: 14px; opacity: 0.82; line-height: 1.65; }
+
+    .c-match { text-align: right; flex-shrink: 0; min-width: 80px; }
+    .c-pct {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1;
+      animation: numUp 0.5s ease-out both;
+    }
+    .c-pct-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.55; }
+    .c-bar-track { height: 4px; background: rgba(255,255,255,0.2); border-radius: 10px; margin-top: 8px; overflow: hidden; }
+    .c-bar-fill { height: 100%; background: #fff; border-radius: 10px; animation: barGrow 1.2s cubic-bezier(.4,0,.2,1) both; }
+
+    .c-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .c-stat {
+      background: rgba(255,255,255,0.1);
+      border-radius: 13px;
+      padding: 14px 16px;
+    }
+    .c-stat-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 5px;
+    }
+    .c-stat-val { font-size: 14px; font-weight: 600; line-height: 1.35; }
+
+    .c-pc { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    @media (max-width: 480px) { .c-pc { grid-template-columns: 1fr; } }
+    .c-pros, .c-cons {
+      background: rgba(255,255,255,0.07);
+      border-radius: 13px;
+      padding: 16px 18px;
+    }
+    .pc-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .c-pros .pc-title { color: #86efac; }
+    .c-cons .pc-title { color: #fca5a5; }
+    .c-pros ul, .c-cons ul { list-style: none; }
+    .c-pros li, .c-cons li {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 7px;
+      display: flex;
+      gap: 8px;
+      line-height: 1.45;
+    }
+    .c-pros li::before { content: "✓"; color: #86efac; font-weight: 700; flex-shrink: 0; }
+    .c-cons li::before { content: "✗"; color: #fca5a5; font-weight: 700; flex-shrink: 0; }
+
+    .c-source {
+      font-size: 11px;
+      opacity: 0.45;
+      font-style: italic;
+      margin-top: 4px;
+    }
+    .c-source a { color: #fff; }
+
+    .results-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 44px;
+    }
+
+    /* ══════════════════════════════════════════════
+       SHARE MODAL
+    ══════════════════════════════════════════════ */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,0,60,0.55);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-bg.open { display: flex; animation: fadeUp 0.2s ease-out; }
+
+    .modal-box {
+      max-width: 500px;
+      width: 100%;
+      padding: 44px 40px 36px;
+      position: relative;
+      animation: popIn 0.3s ease-out;
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px; right: 22px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 22px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .modal-sub { font-size: 14px; opacity: 0.72; margin-bottom: 28px; line-height: 1.6; }
+
+    .modal-input {
+      width: 100%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 13px;
+      padding: 14px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      outline: none;
+      margin-bottom: 18px;
+      transition: border-color 0.2s;
+    }
+    .modal-input::placeholder { color: rgba(255,255,255,0.45); }
+    .modal-input:focus { border-color: rgba(255,255,255,0.55); }
+
+    .share-preview {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 13px;
+      padding: 16px 20px;
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 22px;
+      min-height: 80px;
+      color: rgba(255,255,255,0.88);
+    }
+    .share-preview strong { color: #fff; }
+
+    .modal-btns { display: flex; flex-direction: column; gap: 10px; }
+    .btn-copy { display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-tweet {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      padding: 13px 28px;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-align: center;
+    }
+    .btn-tweet:hover { background: rgba(255,255,255,0.22); }
+
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(255,255,255,0.97);
+      color: #7C3AED;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      z-index: 300;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── UTILS ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      .q-card { padding: 26px 22px 20px; }
+      .c-card { padding: 24px 20px; }
+      .modal-box { padding: 36px 24px 28px; }
+      .c-top { gap: 14px; }
+      .c-match { min-width: 70px; }
+      .c-pct { font-size: 36px; }
+    }
+  </style>
+</head>
 <body>
 
-  <!-- ===================== TOP BAR / NAVIGATION ===================== -->
-  <!-- A navigation bar usually helps people jump around the page. -->
-  <!-- This one is crooked, crowded, and the links barely look like links. -->
-  <div class="topbar">
-    <span class="logo">⭐ [[ YOUR NAME ]]'s WEBSITE ⭐</span>
-    <a href="#about" class="navlink1">about me</a>
-    <a href="#stuff" class="navlink2">STUFF I LIKE</a>
-    <a href="#projects" class="navlink3">Projects</a>
-    <a href="#contact" class="navlink4">contact!!!</a>
-  </div>
-
-  <!-- ===================== HERO / HEADER ===================== -->
-  <!-- This is the first thing visitors see. It should make a good impression. -->
-  <!-- Right now it's three different fonts and a headache of colors. -->
-  <div class="hero">
-    <h1 class="bigname">[[ YOUR NAME HERE ]]</h1>
-    <p class="tagline">welcome 2 my personal website on the internet world wide web !!!!!</p>
-    <div class="hero-photo">📷<br>[[ your photo goes here ]]</div>
-    <button class="herobutton">CLICK ME (i dont do anything yet)</button>
-  </div>
-
-  <!-- ===================== ABOUT ME ===================== -->
-  <div id="about" class="about-section">
-    <h2 class="section-title-a">about me.</h2>
-    <p class="bio">
-      [[ Write 2-3 sentences about yourself here. Who are you? What grade are
-      you in? Where are you from? What are you excited about? ]]
-    </p>
-    <p class="bio-extra">
-      Fun fact about me: [[ one interesting thing about you ]]
-    </p>
-  </div>
-
-  <!-- ===================== STUFF I LIKE / INTERESTS ===================== -->
-  <!-- These "cards" are all different sizes and colors and don't line up. -->
-  <div id="stuff" class="interests">
-    <h2 class="section-title-b">★ STUFF I LIKE ★</h2>
-    <div class="card card-blue">
-      <h3>[[ Interest #1 ]]</h3>
-      <p>[[ Say something about why you like it. ]]</p>
-    </div>
-    <div class="card card-orange">
-      <h3>[[ Interest #2 ]]</h3>
-      <p>[[ Say something about why you like it. ]]</p>
-    </div>
-    <div class="card card-green">
-      <h3>[[ Interest #3 ]]</h3>
-      <p>[[ Say something about why you like it. ]]</p>
-    </div>
-  </div>
-
-  <!-- ===================== PROJECTS ===================== -->
-  <!-- A place to show things you've made or want to make. -->
-  <div id="projects" class="projects-section">
-    <h2 class="section-title-c">things i made</h2>
-    <div class="project-row">
-      <div class="project-img">🖼️</div>
-      <div class="project-text">
-        <h3>[[ Project Name ]]</h3>
-        <p>[[ What is it? What did you build or want to build? ]]</p>
+<!-- ── LANDING ──────────────────────────────────── -->
+<div class="screen active" id="landing">
+  <div style="margin:auto; width:100%; display:flex; align-items:center; justify-content:center; padding:52px 24px 64px;">
+    <div class="landing-wrap" style="text-align:center;">
+      <div class="badge">✦ Free Career Quiz · 10 Questions</div>
+      <h1 class="landing-title">Discover Your<br><em>Perfect Career</em></h1>
+      <p class="landing-sub">Answer 10 questions about your personality, skills, and what brings you joy — and we'll match you to careers built for who you actually are.</p>
+      <div class="chip-row">
+        <span class="chip">💻 Software Dev</span>
+        <span class="chip">🎨 UX Designer</span>
+        <span class="chip">🩺 Doctor</span>
+        <span class="chip">📊 Data Scientist</span>
+        <span class="chip">✍️ Journalist</span>
+        <span class="chip">🌿 Env. Scientist</span>
+        <span class="chip">🚀 Entrepreneur</span>
+        <span class="chip">🏛️ Architect</span>
+      </div>
+      <button class="btn btn-white" style="font-size:18px; padding:18px 52px;" onclick="startQuiz()">Find My Career →</button>
+      <div class="landing-stats">
+        <div><div class="lstat-n">10</div><div class="lstat-l">Questions</div></div>
+        <div><div class="lstat-n">15</div><div class="lstat-l">Career Paths</div></div>
+        <div><div class="lstat-n">~3 min</div><div class="lstat-l">To complete</div></div>
       </div>
     </div>
-    <div class="project-row">
-      <div class="project-text">
-        <h3>[[ Project Name ]]</h3>
-        <p>[[ What is it? What did you build or want to build? ]]</p>
+  </div>
+</div>
+
+<!-- ── QUIZ ─────────────────────────────────────── -->
+<div class="screen" id="quiz">
+  <div style="margin:auto; width:100%; padding:44px 20px 64px; display:flex; justify-content:center;">
+    <div class="quiz-wrap">
+      <div class="quiz-top">
+        <span class="q-label" id="q-cat">Your Free Time</span>
+        <span class="q-counter" id="q-count">1 / 10</span>
       </div>
-      <div class="project-img">🖼️</div>
+      <div class="prog-track"><div class="prog-fill" id="prog" style="width:10%"></div></div>
+      <div class="glass q-card">
+        <div class="q-category" id="q-category-label">HOW YOU SPEND TIME</div>
+        <div class="q-text" id="q-text">Loading…</div>
+      </div>
+      <div class="answers" id="answers"></div>
+      <button class="btn btn-white btn-next" id="btn-next" onclick="nextQ()">Next Question →</button>
     </div>
   </div>
+</div>
 
-  <!-- ===================== PHOTO GALLERY ===================== -->
-  <!-- These photo boxes are stretched and tilted at weird angles. -->
-  <div class="gallery">
-    <h2 class="section-title-d">~ photo gallery ~</h2>
-    <!-- Example photos! They're stretched out of shape and flipped upside down. -->
-    <!-- Ask Claude: "Make the gallery photos neat, same-sized, and right-side up." -->
-    <div class="photo photo1"><img src="images/instructor1.jpg" alt="photo" class="gphoto" width="110" height="80" /></div>
-    <div class="photo photo2"><img src="images/instructor2.jpg" alt="photo" class="gphoto" width="110" height="80" /></div>
-    <div class="photo photo3"><img src="images/instructor3.png" alt="photo" class="gphoto" width="110" height="80" /></div>
-    <div class="photo photo4">🐶</div>
+<!-- ── RESULTS ───────────────────────────────────── -->
+<div class="screen" id="results">
+  <div style="margin:auto; width:100%; padding:48px 20px 72px; display:flex; justify-content:center;">
+    <div class="results-wrap">
+      <div class="results-hd">
+        <span class="results-emoji">🎉</span>
+        <h2 class="results-title">Your Career Matches</h2>
+        <p class="results-sub">Based on your answers, these careers best align with your personality, interests, and values.</p>
+      </div>
+      <div class="career-list" id="career-list"></div>
+      <div class="results-actions">
+        <button class="btn btn-white" onclick="openShare()">📤 Share My Results</button>
+        <button class="btn btn-ghost" onclick="retake()">↩ Retake Quiz</button>
+      </div>
+    </div>
   </div>
+</div>
 
-  <!-- ===================== CONTACT ===================== -->
-  <div id="contact" class="contact-section">
-    <h2 class="section-title-e">CONTACT ME</h2>
-    <p class="contact-line">email: [[ your-email@example.com ]]</p>
-    <p class="contact-line">instagram: [[ @yourhandle ]]</p>
-    <p class="contact-line">find me at: [[ your school / city ]]</p>
+<!-- ── SHARE MODAL ───────────────────────────────── -->
+<div class="modal-bg" id="modal">
+  <div class="glass modal-box">
+    <button class="modal-close" onclick="closeShare()">✕</button>
+    <div class="modal-title">📤 Share Your Results</div>
+    <div class="modal-sub">Enter your name to personalize your share card.</div>
+    <input class="modal-input" id="share-name" placeholder="Your name…" oninput="updatePreview()" maxlength="40" />
+    <div class="share-preview" id="share-preview">Enter your name above to generate a share message ✨</div>
+    <div class="modal-btns">
+      <button class="btn btn-white btn-copy" onclick="copyShare()">📋 Copy to Clipboard</button>
+      <button class="btn-tweet" onclick="tweetShare()">𝕏 Share on X (Twitter)</button>
+    </div>
   </div>
+</div>
 
-  <!-- ===================== FOOTER ===================== -->
-  <div class="footer">
-    <p>this website was made by [[ YOUR NAME ]] in the year [[ year ]] !!!!! 🚀🚀🚀</p>
-    <p class="tiny">copyright me. do not steal. (made for SMG Bubble)</p>
-  </div>
+<div class="toast" id="toast">Copied to clipboard ✓</div>
 
+<script>
+// ── TRAIT DIMENSIONS ──────────────────────────────
+// Index: 0=Creative  1=Technical  2=Social  3=Analytical  4=Scientific  5=Business
+// MAX possible per dimension (based on question design below)
+const MAX = [20, 14, 20, 8, 8, 14];
+
+// ── QUESTIONS ─────────────────────────────────────
+const QS = [
+  {
+    cat: "YOUR FREE TIME",
+    text: "How do you prefer to spend your free time?",
+    ans: [
+      { t: "Sketching, writing, playing music, or making art", v: [2,0,0,0,0,0] },
+      { t: "Coding, building gadgets, gaming, or tinkering", v: [0,2,0,0,0,0] },
+      { t: "Volunteering, hosting events, or helping others", v: [0,0,2,0,0,0] },
+      { t: "Reading research, solving puzzles, or exploring nature", v: [0,0,0,1,1,0] },
+    ]
+  },
+  {
+    cat: "WORK ENVIRONMENT",
+    text: "Which workspace sounds most like home to you?",
+    ans: [
+      { t: "A sunlit creative studio with full artistic freedom", v: [2,0,0,0,0,0] },
+      { t: "A sleek tech office or cutting-edge research lab", v: [0,2,0,0,1,0] },
+      { t: "A hospital, school, clinic, or community center", v: [0,0,2,0,0,0] },
+      { t: "A fast-paced business office or startup floor", v: [0,0,0,1,0,2] },
+    ]
+  },
+  {
+    cat: "PROBLEM SOLVING",
+    text: "When you hit a tough problem, your first move is…",
+    ans: [
+      { t: "Brainstorm totally fresh, unconventional solutions", v: [2,0,0,0,0,0] },
+      { t: "Research data and break it down methodically", v: [0,1,0,2,0,0] },
+      { t: "Talk it through and gather perspectives from others", v: [0,0,2,0,0,0] },
+      { t: "Map out a plan, set priorities, and start executing", v: [0,0,0,1,0,2] },
+    ]
+  },
+  {
+    cat: "SCHOOL SUBJECTS",
+    text: "Which school subject genuinely excited you most?",
+    ans: [
+      { t: "Art, music, English, or creative writing", v: [2,0,0,0,0,0] },
+      { t: "Math, physics, or computer science", v: [0,2,0,1,0,0] },
+      { t: "Biology, chemistry, or environmental science", v: [0,1,0,1,2,0] },
+      { t: "History, psychology, or social studies", v: [0,0,2,1,0,0] },
+    ]
+  },
+  {
+    cat: "WHAT MATTERS MOST",
+    text: "What matters most to you in a career?",
+    ans: [
+      { t: "Creative freedom to express yourself fully", v: [2,0,0,0,0,0] },
+      { t: "Mastering complex technical or scientific skills", v: [0,2,0,0,1,0] },
+      { t: "Genuinely improving people's lives every day", v: [0,0,2,0,0,0] },
+      { t: "Building wealth, influence, and a strong reputation", v: [0,0,0,0,0,2] },
+    ]
+  },
+  {
+    cat: "DREAM PROJECT",
+    text: "Which project would excite you the most?",
+    ans: [
+      { t: "Designing the brand identity for a major new company", v: [2,0,0,0,0,0] },
+      { t: "Building an AI application that solves a real problem", v: [0,2,0,1,0,0] },
+      { t: "Running a mental health or community awareness campaign", v: [0,0,2,0,0,1] },
+      { t: "Conducting research that could reshape medicine or science", v: [0,1,0,1,2,0] },
+    ]
+  },
+  {
+    cat: "FREE SATURDAY",
+    text: "You have a completely free Saturday. What do you do?",
+    ans: [
+      { t: "Work on a creative project you've been putting off", v: [2,0,0,0,0,0] },
+      { t: "Explore a new programming language or tech tool", v: [0,2,0,0,0,0] },
+      { t: "Volunteer, help a friend, or connect with community", v: [0,0,2,0,0,0] },
+      { t: "Research investments or sketch out a business idea", v: [0,0,0,1,0,2] },
+    ]
+  },
+  {
+    cat: "LASTING IMPACT",
+    text: "What kind of legacy do you most want to leave?",
+    ans: [
+      { t: "Art, writing, or media that genuinely moves people", v: [2,0,0,0,0,0] },
+      { t: "A discovery that changes how we understand the world", v: [0,1,0,1,2,0] },
+      { t: "Better lives for the specific people you've helped", v: [0,0,2,0,0,0] },
+      { t: "A company or movement that outlasts you", v: [0,0,0,0,0,2] },
+    ]
+  },
+  {
+    cat: "IDEAL WORKDAY",
+    text: "Describe your ideal workday in one word:",
+    ans: [
+      { t: "\"Expressive\" — full creative control over your work", v: [2,0,0,0,0,0] },
+      { t: "\"Precise\" — deep technical or scientific problem-solving", v: [0,2,0,1,1,0] },
+      { t: "\"Connected\" — teaching, listening, or supporting people", v: [0,0,2,0,0,0] },
+      { t: "\"Strategic\" — decisions that move the needle on big goals", v: [0,0,0,1,0,2] },
+    ]
+  },
+  {
+    cat: "YOUR STRENGTH",
+    text: "What's your biggest natural strength?",
+    ans: [
+      { t: "Imagination — you see possibilities others don't", v: [2,0,0,0,0,0] },
+      { t: "Logic — you break complex things into clear steps", v: [0,1,0,2,0,0] },
+      { t: "Empathy — you deeply understand what people need", v: [0,0,2,0,0,0] },
+      { t: "Drive — you push through until the goal is reached", v: [0,0,0,0,0,2] },
+    ]
+  },
+];
+
+// ── CAREERS ───────────────────────────────────────
+// traits: [Creative, Technical, Social, Analytical, Scientific, Business]
+const CAREERS = [
+  {
+    title: "Software Developer",
+    icon: "💻",
+    desc: "Design, build, and maintain software applications that power modern life — from mobile apps to operating systems.",
+    salary: "$130,160 / year (median)",
+    hours: "~40 hrs / week",
+    growth: "+25% through 2032 (much faster than avg.)",
+    traits: [1,5,1,4,1,1],
+    pros: ["High salary & benefits", "Strong remote opportunities", "Massive global demand"],
+    cons: ["Can be sedentary", "Constant pressure to learn new tech", "Deadline stress"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm"
+  },
+  {
+    title: "UX / Product Designer",
+    icon: "🎨",
+    desc: "Shape how people interact with digital products by blending psychology, aesthetics, and technology to create intuitive experiences.",
+    salary: "$98,860 / year (median)",
+    hours: "~40 hrs / week",
+    growth: "+3% through 2032",
+    traits: [4,3,3,2,0,1],
+    pros: ["Creative meets technical", "High startup demand", "Visible user impact"],
+    cons: ["Many revision cycles", "Feedback-heavy role", "Competitive portfolio culture"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/arts-and-design/graphic-designers.htm"
+  },
+  {
+    title: "Data Scientist",
+    icon: "📊",
+    desc: "Analyze massive datasets to uncover patterns that drive business decisions, using statistics, machine learning, and programming.",
+    salary: "$108,020 / year (median)",
+    hours: "~40–45 hrs / week",
+    growth: "+35% through 2032 (much faster than avg.)",
+    traits: [0,4,0,5,3,1],
+    pros: ["Explosive job growth", "High pay across industries", "Deep intellectual challenge"],
+    cons: ["Steep learning curve", "Heavy data cleaning work", "Can feel isolating"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/math/data-scientists.htm"
+  },
+  {
+    title: "Physician / Doctor",
+    icon: "🩺",
+    desc: "Diagnose illness, treat patients, and promote long-term health across specialties like surgery, pediatrics, or primary care.",
+    salary: "$229,300+ / year (median, varies by specialty)",
+    hours: "50–60+ hrs / week",
+    growth: "+3% through 2032",
+    traits: [0,2,4,3,5,1],
+    pros: ["Highest-earning profession", "Deeply meaningful daily work", "Respected career"],
+    cons: ["10+ years of training required", "Long and irregular hours", "Very high responsibility & stress"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/healthcare/physicians-and-surgeons.htm"
+  },
+  {
+    title: "Registered Nurse",
+    icon: "🏥",
+    desc: "Provide direct patient care, administer medications, and support patients and families through illness and recovery.",
+    salary: "$81,220 / year (median)",
+    hours: "36–48 hrs / week (shift-based)",
+    growth: "+6% through 2032 (faster than avg.)",
+    traits: [1,1,5,2,3,0],
+    pros: ["Near-universal job security", "Profound daily impact", "Flexible shift options"],
+    cons: ["Physically demanding", "Emotionally taxing", "Long 12-hour shifts"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/healthcare/registered-nurses.htm"
+  },
+  {
+    title: "Psychologist / Therapist",
+    icon: "🧠",
+    desc: "Help people understand and overcome mental health challenges through evidence-based therapy, research, and counseling.",
+    salary: "$92,740 / year (median)",
+    hours: "~40 hrs / week",
+    growth: "+6% through 2032 (faster than avg.)",
+    traits: [1,0,5,4,2,0],
+    pros: ["Deeply rewarding work", "Flexible private-practice option", "Growing societal demand"],
+    cons: ["Emotionally absorbing", "Years of training required", "Insurance & billing complexity"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/life-physical-and-social-science/psychologists.htm"
+  },
+  {
+    title: "Marketing Manager",
+    icon: "📢",
+    desc: "Develop and lead campaigns that build brands, drive revenue, and connect products to the right audiences across every channel.",
+    salary: "$140,040 / year (median)",
+    hours: "~40–50 hrs / week",
+    growth: "+6% through 2032 (faster than avg.)",
+    traits: [3,2,3,3,0,4],
+    pros: ["High earning potential", "Creative + analytical blend", "Fast-paced and dynamic"],
+    cons: ["Constant pressure to show ROI", "Heavy deadline culture", "Requires nonstop trend-tracking"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/management/advertising-promotions-and-marketing-managers.htm"
+  },
+  {
+    title: "Elementary School Teacher",
+    icon: "📚",
+    desc: "Shape young minds during their most formative years — teaching reading, math, science, and social-emotional skills to K–5 students.",
+    salary: "$61,690 / year (median)",
+    hours: "~40 hrs / week (summers mostly off)",
+    growth: "+1% through 2032",
+    traits: [2,1,5,2,1,1],
+    pros: ["Summers & holidays off", "Deep community impact", "Creative freedom in your classroom"],
+    cons: ["Relatively lower pay for degree required", "High burnout risk", "Large class sizes & admin load"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/education-training-and-library/kindergarten-and-elementary-school-teachers.htm"
+  },
+  {
+    title: "Graphic Designer",
+    icon: "✏️",
+    desc: "Create logos, illustrations, layouts, and visual identities that communicate ideas and emotions through the power of design.",
+    salary: "$57,990 / year (median)",
+    hours: "~40 hrs / week",
+    growth: "-3% through 2032 (print demand declining)",
+    traits: [5,2,2,1,0,1],
+    pros: ["Pure creative expression", "Freelance freedom", "Visible, portfolio-driven career"],
+    cons: ["Below-average pay for the education required", "Very competitive field", "Print sector shrinking"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/arts-and-design/graphic-designers.htm"
+  },
+  {
+    title: "Financial Analyst",
+    icon: "📈",
+    desc: "Evaluate investment opportunities, analyze financial data, and provide guidance that shapes how businesses and individuals grow wealth.",
+    salary: "$99,890 / year (median)",
+    hours: "~40–50 hrs / week",
+    growth: "+8% through 2032 (faster than avg.)",
+    traits: [0,2,1,5,1,4],
+    pros: ["High salary ceiling with bonuses", "Clear advancement path", "Structured, logical work"],
+    cons: ["Long hours in investment finance", "High-stakes pressure", "Can feel repetitive over time"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/business-and-financial/financial-analysts.htm"
+  },
+  {
+    title: "Environmental Scientist",
+    icon: "🌿",
+    desc: "Study the environment, assess pollution and climate risks, and develop science-backed solutions to protect ecosystems and public health.",
+    salary: "$78,980 / year (median)",
+    hours: "~40 hrs / week (mix of field & lab)",
+    growth: "+6% through 2032 (faster than avg.)",
+    traits: [1,2,2,4,5,0],
+    pros: ["Mission-driven, planet-positive work", "Blend of fieldwork and research", "Growing urgency and demand"],
+    cons: ["Often government budget-dependent", "Physical demands of fieldwork", "Lower pay vs. other science fields"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/life-physical-and-social-science/environmental-scientists-and-specialists.htm"
+  },
+  {
+    title: "Civil / Structural Engineer",
+    icon: "🏗️",
+    desc: "Design and oversee construction of the infrastructure civilization runs on — bridges, roads, dams, water systems, and buildings.",
+    salary: "$95,890 / year (median)",
+    hours: "~40–45 hrs / week",
+    growth: "+5% through 2032 (faster than avg.)",
+    traits: [1,4,1,4,3,2],
+    pros: ["Tangible, long-lasting work", "Stable demand fueled by infrastructure spending", "Good pay with seniority"],
+    cons: ["Heavy math and CAD requirements", "Long project timelines", "Outdoor fieldwork in all conditions"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/architecture-and-engineering/civil-engineers.htm"
+  },
+  {
+    title: "Journalist / Writer",
+    icon: "✍️",
+    desc: "Investigate, report, and craft stories that inform and challenge the public — from investigative journalism to books and digital content.",
+    salary: "$56,690 / year (median, writers & authors)",
+    hours: "Variable — often irregular around deadlines",
+    growth: "-3% through 2032 (print shifting to digital)",
+    traits: [4,1,3,3,1,1],
+    pros: ["Intellectually stimulating variety", "Work that drives public conversation", "Strong freelance independence"],
+    cons: ["Industry has contracted sharply", "Irregular income (especially freelance)", "High deadline pressure"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/arts-and-design/writers-and-authors.htm"
+  },
+  {
+    title: "Entrepreneur",
+    icon: "🚀",
+    desc: "Build a business from scratch — identifying gaps in the market, assembling a team, and leading a venture from idea to reality.",
+    salary: "Highly variable (median self-employed: ~$68,000+)",
+    hours: "50–70+ hrs / week (especially in early stages)",
+    growth: "Unlimited upside — no ceiling on success",
+    traits: [2,2,2,3,0,5],
+    pros: ["Unlimited income potential", "Total autonomy and creative control", "Build something entirely your own"],
+    cons: ["No guaranteed salary or stability", "Extremely demanding hours", "High rate of failure in early years"],
+    source: "U.S. Small Business Administration & BLS Self-Employment Data",
+    url: "https://www.bls.gov/emp/tables/self-employed-persons.htm"
+  },
+  {
+    title: "Architect",
+    icon: "🏛️",
+    desc: "Design buildings and spaces that are beautiful, functional, and sustainable — balancing aesthetics, structural logic, and client vision.",
+    salary: "$93,310 / year (median)",
+    hours: "~40–50 hrs / week",
+    growth: "+3% through 2032",
+    traits: [5,3,1,4,1,2],
+    pros: ["Art meets engineering in a lasting way", "High creative prestige", "Visible, physical legacy"],
+    cons: ["5–8 year licensure process", "Client-driven constraints on creative vision", "Income tied to economic cycles"],
+    source: "Bureau of Labor Statistics — Occupational Outlook Handbook",
+    url: "https://www.bls.gov/ooh/architecture-and-engineering/architects.htm"
+  },
+];
+
+// ── LABELS ────────────────────────────────────────
+const RANK_LABELS = ["Best Match 🥇", "Strong Match 🥈", "Great Match 🥉", "Also Worth Exploring"];
+
+// ── STATE ─────────────────────────────────────────
+let qi = 0;           // current question index
+let chosen = null;    // selected answer index this round
+let scores = [0,0,0,0,0,0]; // [C,T,S,A,Sc,B]
+let topResults = [];  // computed after quiz
+
+// ── SCREEN CONTROL ────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ── LANDING → QUIZ ────────────────────────────────
+function startQuiz() {
+  qi = 0; chosen = null; scores = [0,0,0,0,0,0];
+  renderQ();
+  show('quiz');
+}
+
+// ── RENDER QUESTION ───────────────────────────────
+function renderQ() {
+  const q = QS[qi];
+  document.getElementById('q-cat').textContent = q.cat;
+  document.getElementById('q-count').textContent = `${qi+1} / ${QS.length}`;
+  document.getElementById('q-category-label').textContent = q.cat;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('prog').style.width = `${((qi+1)/QS.length)*100}%`;
+
+  const grid = document.getElementById('answers');
+  grid.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.ans.forEach((a, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ans';
+    btn.innerHTML = `<div class="ans-dot">${letters[i]}</div>${a.t}`;
+    btn.onclick = () => selectAns(i);
+    grid.appendChild(btn);
+  });
+
+  chosen = null;
+  const nb = document.getElementById('btn-next');
+  nb.classList.remove('show');
+  nb.textContent = qi === QS.length - 1 ? 'See My Results →' : 'Next Question →';
+}
+
+// ── SELECT ANSWER ─────────────────────────────────
+function selectAns(i) {
+  chosen = i;
+  document.querySelectorAll('.ans').forEach((el, j) => {
+    el.classList.toggle('chosen', j === i);
+  });
+  document.getElementById('btn-next').classList.add('show');
+}
+
+// ── ADVANCE QUESTION ──────────────────────────────
+function nextQ() {
+  if (chosen === null) return;
+  const vec = QS[qi].ans[chosen].v;
+  vec.forEach((v, i) => { scores[i] += v; });
+  qi++;
+  if (qi >= QS.length) { showResults(); }
+  else { renderQ(); }
+}
+
+// ── COMPUTE & SHOW RESULTS ────────────────────────
+function showResults() {
+  const norm = scores.map((s, i) => s / (MAX[i] || 1));
+
+  const scored = CAREERS.map(c => {
+    const tsum = c.traits.reduce((a, b) => a + b, 0) || 1;
+    const tn = c.traits.map(t => t / tsum);
+    const match = norm.reduce((s, v, i) => s + v * tn[i], 0);
+    return { ...c, _m: match };
+  });
+  scored.sort((a, b) => b._m - a._m);
+
+  const top = scored.slice(0, 4);
+  const hi = top[0]._m, lo = top[top.length-1]._m, rng = hi - lo || 0.01;
+  topResults = top.map((c, i) => ({
+    ...c,
+    pct: i === 0 ? 98 : Math.round(((c._m - lo) / rng) * 23 + 75)
+  }));
+
+  const list = document.getElementById('career-list');
+  list.innerHTML = '';
+  topResults.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'glass c-card';
+    card.innerHTML = `
+      <div class="c-top">
+        <span class="c-icon">${c.icon}</span>
+        <div class="c-hd">
+          <div class="c-rank">${RANK_LABELS[i]}</div>
+          <div class="c-title">${c.title}</div>
+          <div class="c-desc">${c.desc}</div>
+        </div>
+        <div class="c-match">
+          <div class="c-pct" style="animation-delay:${0.15+i*0.1}s">${c.pct}%</div>
+          <div class="c-pct-label">match</div>
+          <div class="c-bar-track">
+            <div class="c-bar-fill" style="width:${c.pct}%;animation-delay:${0.15+i*0.1}s"></div>
+          </div>
+        </div>
+      </div>
+      <div class="c-stats">
+        <div class="c-stat"><div class="c-stat-lbl">💰 Median Salary</div><div class="c-stat-val">${c.salary}</div></div>
+        <div class="c-stat"><div class="c-stat-lbl">🕐 Typical Hours</div><div class="c-stat-val">${c.hours}</div></div>
+        <div class="c-stat"><div class="c-stat-lbl">📈 Job Growth</div><div class="c-stat-val">${c.growth}</div></div>
+      </div>
+      <div class="c-pc">
+        <div class="c-pros">
+          <div class="pc-title">Upsides</div>
+          <ul>${c.pros.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div class="c-cons">
+          <div class="pc-title">Challenges</div>
+          <ul>${c.cons.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="c-source">Source: <a href="${c.url}" target="_blank" rel="noopener">${c.source}</a></div>
+    `;
+    list.appendChild(card);
+  });
+
+  show('results');
+}
+
+// ── RETAKE ────────────────────────────────────────
+function retake() {
+  qi = 0; chosen = null; scores = [0,0,0,0,0,0]; topResults = [];
+  renderQ();
+  show('quiz');
+  window.scrollTo(0, 0);
+}
+
+// ── SHARE MODAL ───────────────────────────────────
+function openShare() {
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('share-name').value = '';
+  document.getElementById('share-preview').innerHTML = 'Enter your name above to generate a share message ✨';
+}
+function closeShare() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function updatePreview() {
+  const name = document.getElementById('share-name').value.trim();
+  const preview = document.getElementById('share-preview');
+  if (!name || !topResults.length) {
+    preview.innerHTML = 'Enter your name above to generate a share message ✨';
+    return;
+  }
+  const top = topResults[0];
+  const second = topResults[1];
+  preview.innerHTML = `🎯 <strong>${name}</strong> just took the CareerPath quiz! Their top match is <strong>${top.icon} ${top.title}</strong> (${top.pct}% match), followed by <strong>${second.icon} ${second.title}</strong>. Find your own career path!`;
+}
+
+function buildShareText() {
+  const name = document.getElementById('share-name').value.trim() || 'Someone';
+  const top = topResults[0];
+  const second = topResults[1];
+  return `🎯 ${name} just took the CareerPath quiz!\n\nTop match: ${top.icon} ${top.title} (${top.pct}% match)\nRunner-up: ${second.icon} ${second.title}\n\nFind YOUR career path — it's free & only takes 3 minutes!`;
+}
+
+function copyShare() {
+  navigator.clipboard.writeText(buildShareText()).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }).catch(() => {
+    // Fallback: select a temp textarea
+    const ta = document.createElement('textarea');
+    ta.value = buildShareText();
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  });
+}
+
+function tweetShare() {
+  const text = encodeURIComponent(buildShareText());
+  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'noopener');
+}
+
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeShare();
+});
+</script>
 </body>
 </html>
